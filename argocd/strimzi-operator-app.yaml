@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: strimzi-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://strimzi.io/charts/
+    chart: strimzi-kafka-operator
+    targetRevision: 0.48.0
+    helm:
+      values: |
+        watchNamespaces:
+          - kafka
+        
+        resources:
+          limits:
+            memory: 384Mi
+            cpu: 1000m
+          requests:
+            memory: 384Mi
+            cpu: 200m
+        
+        logLevel: INFO
+        
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                - key: workload
+                  operator: NotIn
+                  values:
+                  - kafka
+        
+        tolerations: []
+        
+        labels:
+          app: strimzi-operator
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
