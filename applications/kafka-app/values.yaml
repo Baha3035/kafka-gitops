@@ -1,0 +1,31 @@
+namespace: kafka
+imageRegistry: 401413892014.dkr.ecr.us-east-1.amazonaws.com
+
+kafka:
+  cluster: kafka-cluster
+  bootstrapServers: kafka-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
+  topicName: sensor-data
+
+database:
+  host: test-kafka-db.cyurgzecrh7z.us-east-1.rds.amazonaws.com
+  port: "5432"
+  name: postgres
+  user: postgres
+
+# External Secrets
+externalSecret:
+  enabled: true
+  secretStore: aws-secretsmanager
+  awsSecretKey: kafka/database/password
+
+producer:
+  replicas: 1
+  imageTag: latest
+
+consumer:
+  replicas: 2
+  imageTag: latest
+
+dashboard:
+  replicas: 1
+  imageTag: latest

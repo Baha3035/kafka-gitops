@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-dashboard
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.dashboard.replicas }}
+  selector:
+    matchLabels:
+      app: kafka-dashboard
+  template:
+    metadata:
+      labels:
+        app: kafka-dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: {{ .Values.imageRegistry }}/kafka-dashboard:{{ .Values.dashboard.imageTag }}
+        ports:
+        - containerPort: 3000
