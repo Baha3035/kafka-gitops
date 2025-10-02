@@ -16,7 +16,7 @@ database:
 externalSecret:
   enabled: true
   secretStore: aws-secretsmanager
-  awsSecretKey: kafka/database/password
+  awsSecretKey: kafka-eks-project-dev-db-master-password
 
 producer:
   replicas: 1
