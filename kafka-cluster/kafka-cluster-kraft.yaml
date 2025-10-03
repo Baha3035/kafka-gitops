@@ -15,7 +15,7 @@ spec:
     version: 4.0.0
     metadataVersion: 4.0-IV0
     # replicas field required but ignored when using node pools
-    replicas: 3
+    # replicas: 3
     
     listeners:
       - name: plain
@@ -51,10 +51,10 @@ spec:
       auto.create.topics.enable: false
     
     # Storage configuration inherited from node pools
-    storage:
-      type: persistent-claim
-      size: 10Gi
-      class: gp2
+    # storage:
+    #   type: persistent-claim
+    #   size: 10Gi
+    #   class: gp2
     
     # Metrics configuration
     metricsConfig:
