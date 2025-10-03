@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka-topics
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"  # After Kafka cluster
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Baha3035/kafka-gitops.git
+    targetRevision: main
+    path: topics
+    directory:
+      recurse: true
+      include: '*.yaml'
+      exclude: 'TEMPLATE.yaml'  # Don't deploy the template!
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

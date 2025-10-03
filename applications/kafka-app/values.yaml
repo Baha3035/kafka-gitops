@@ -4,7 +4,6 @@ imageRegistry: 401413892014.dkr.ecr.us-east-1.amazonaws.com
 kafka:
   cluster: kafka-cluster
   bootstrapServers: kafka-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
-  topicName: sensor-data
 
 database:
   host: kafka-eks-project-dev-db.cyurgzecrh7z.us-east-1.rds.amazonaws.com
